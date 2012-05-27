@@ -8,14 +8,11 @@ doc = EzSVG.Document(dim, dim, "white")
 group = EzSVG.Group()
 
 for y=0,dim,step do
-    local path = EzSVG.Path({
+    local path = EzSVG.Polyline({0, y, 500, y/2, 1000, 1000-y}, {
         fill="none",
         stroke="black",
         stroke_width=1
     })
-    path:moveToA(0, y)
-    path:lineToA(500, y/2)
-    path:lineToA(1000, 1000-y)
     group:add(path)
 end
 
