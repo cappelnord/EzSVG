@@ -41,7 +41,7 @@ EzSVG.setStyle({
 for d=0,1000,100 do
     -- create a circle
     local circle = EzSVG.Circle(d, d, d/10)
-    -- create a circle
+    -- add the circle to the doc
     doc:add(circle)
      -- set a fill color
     circle:setStyle("fill", EzSVG.rgb(d/4, 0, 0))
