@@ -3,7 +3,6 @@ EzSVG = require "EzSVG"
 local dim = 1000
 local step = 50
 
-
 doc = EzSVG.Document(dim, dim, "white")
 group = EzSVG.Group()
 

@@ -847,11 +847,47 @@ EzSVG.SVG = function(x, y, width, height, style)
 end
 
 EzSVG.rgb = function(r, g, b)
-    return "rgb(" .. math.floor(r) .. ", " .. math.floor(g) .. ", " .. math.floor(b) ..")"
+    return string.format("rgb(%d, %d, %d)", math.floor(r), math.floor(g), math.floor(b))
 end
 
 EzSVG.gray = function(g)
     return EzSVG.rgb(g, g, g)
+end
+
+EzSVG.hsv = function(h, s, v)
+
+    h = h / 255
+    s = s / 255
+    v = v / 255
+
+    h = h - math.floor(h)
+
+    h = math.max(0, math.min(1, h))
+    s = math.max(0, math.min(1, s))
+    v = math.max(0, math.min(1, v))
+    
+    local hi = math.floor(h * 6.0)
+    local f = (h * 6.0) - hi
+    
+    local p = v * (1.0 - s)
+    local q = v * (1.0 - s * f)
+    local t = v * (1.0 - s * (1.0 - f))
+    
+    local rgb = {v, t, p}
+    
+    if hi == 1 then
+        rgb = {q, v, p}
+    elseif hi == 2 then
+        rgb = {p, v, t}
+    elseif hi == 3 then
+        rgb = {p, q, v}
+    elseif hi == 4 then
+        rgb = {t, p, v}
+    elseif hi == 5 then
+        rgb = {v, p, q}
+    end
+    
+    return EzSVG.rgb(rgb[1] * 255, rgb[2] * 255, rgb[3] * 255)
 end
 
 -- init
