@@ -31,7 +31,7 @@ EzSVG.knownTags = {
     "polyline", "polygon", "path", "text",
     "tspan", "textPath", "image", "svg", "g",
     "defs", "tref", "linearGradient", "radialGradient",
-    "stop", "use", "symbol"
+    "stop", "use", "symbol", "pattern"
 }
 
 local mergeTable = function(dst, src)
@@ -559,7 +559,9 @@ local createPointsTagTable = function(tag, points, style)
     ret["addPoint"] = function(tbl, x, y)
         table.insert(tbl["__points"], x)
         table.insert(tbl["__points"], y)
-    end    
+    end
+    
+    return ret    
 end
 
 EzSVG.Polyline = function(points, style)
@@ -663,16 +665,20 @@ local function numberToPercent(number)
     return number
 end
 
-local function createGradientTable(tag, userSpace, spread, style)
+local function validUnitsValue(value)
+    if value == "userSpaceOnUse" or value == "objectBoundingBox" then
+        return value
+    end
+    return false
+end
+
+local function createGradientTable(tag, userSpaceUnits, spread, style)
     local ret = createGroupTable(tag, style)
     
     ret["spreadMethod"] = spread
     
-    if userSpace then
-        ret["gradientUnits"] = "userSpaceOnUse"
-    else
-        ret["gradientUnits"] = "objectBoundingBox"
-    end
+    ret["gradientUnits"] = validUnitsValue(userSpaceUnits) or "objectBoundingBox"
+
     
     ret["addStop"] = function(tbl, offset, color, opacity)
         local stop = createTagTable("stop")
@@ -688,11 +694,11 @@ local function createGradientTable(tag, userSpace, spread, style)
     return ret
 end
 
-EzSVG.LinearGradient = function(x1, y1, x2, y1, userSpace, spread,  style)
-    local ret = createGradientTable("linearGradient", userSpace, spread, style)
+EzSVG.LinearGradient = function(x1, y1, x2, y1, userSpaceUnits, spread,  style)
+    local ret = createGradientTable("linearGradient", userSpaceUnits, spread, style)
     
     local process = numberToPercent
-    if userSpace then process = function(arg) return arg end end
+    if userSpaceUnits then process = function(arg) return arg end end
     
     ret["x1"] = process(x1)
     ret["y1"] = process(y1)
@@ -702,11 +708,11 @@ EzSVG.LinearGradient = function(x1, y1, x2, y1, userSpace, spread,  style)
     return ret
 end
 
-EzSVG.RadialGradient = function(cx, cy, r, fx, fy, userSpace, spread, style)
-    local ret = createGradientTable("radialGradient", userSpace, spread, style)
+EzSVG.RadialGradient = function(cx, cy, r, fx, fy, userSpaceUnits, spread, style)
+    local ret = createGradientTable("radialGradient", userSpaceUnits, spread, style)
     
     local process = numberToPercent
-    if userSpace then process = function(arg) return arg end end
+    if userSpaceUnits then process = function(arg) return arg end end
     
     ret["cx"] = process(cx)
     ret["cy"] = process(cy)
@@ -734,6 +740,23 @@ EzSVG.Symbol = function(preserveAspectRatio, viewBox, style)
     
     ret["preserveAspectRatio"] = preserveAspectRatio
     ret["viewBox"] = viewBox
+    
+    return ret
+end
+
+EzSVG.Pattern = function(x, y, width, height, preserveAspectRatio, patternUnits, patternContentUnits, viewbox, style)
+    local ret = createGroupTable("pattern", style)
+    
+    ret["x"] = x
+    ret["y"] = y
+    ret["width"] = width
+    ret["height"] = height
+    ret["preserveAspectRatio"] = preserveAspectRatio
+    ret["patternUnits"] = validUnitsValue(patternUnits) or "objectBoundingBox"
+    ret["patternContentUnits"] = validUnitsValue(patternContentUnits) or "userSpaceOnUse"
+    ret["viewbox"] = viewbox
+    
+    ret["__transformProperty"] = "patternTransform"
     
     return ret
 end

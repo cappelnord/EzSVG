@@ -1,3 +1,6 @@
+-- Gradient Interface needs some Work
+-- Better don't use now
+
 EzSVG = require "EzSVG"
 
 svg = EzSVG.Document(1000, 1000, "#222222")

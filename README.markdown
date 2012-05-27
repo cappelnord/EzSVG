@@ -106,6 +106,8 @@ Renderings of the other Example Files:
 * [example3.lua](http://www.cappel-nord.de/ezsvg-examples/example3.png)
 * [example4.lua](http://www.cappel-nord.de/ezsvg-examples/example4.png)
 * [example5.lua](http://www.cappel-nord.de/ezsvg-examples/example5.png)
+* [example6.lua](http://www.cappel-nord.de/ezsvg-examples/example6.png)
+
 
 Function/Method Reference
 -------------------------
