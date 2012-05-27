@@ -201,6 +201,7 @@ local attachStyleFunctions = function(tbl)
             key = updashStyleTable(key)
             overwriteTable(tbl["__style"], key)
         else
+            key = string.gsub(key, "_", "-")
             tbl["__style"][key] = value
         end
         
@@ -335,6 +336,7 @@ EzSVG.setStyle = function(key, value, tag)
             setDefaultStyles(k, v, tag)
         end
     elseif type(key) == "string" then
+        key = string.gsub(key, "_", "-")
         setDefaultStyles(key, value, tag)
     end
 end
