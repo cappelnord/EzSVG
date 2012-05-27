@@ -14,10 +14,9 @@ for x=0, width,width/80 do
     lines:add(EzSVG.Line(x, 0, x, math.abs(math.sin(x/30) * 250)))
 end
 
-EzSVG.clearStyles()
+EzSVG.clearStyle()
 
 svg:add(lines)
-
 
 for i=0,9 do
     local x = i%3 * 70 + 100

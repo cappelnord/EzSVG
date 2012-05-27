@@ -17,6 +17,7 @@ Besides generating the SVG document by the means of nested Lua tables some other
 * Style properties can be written with an underscore instead of a dash (e.g. font_size instead of font-size) allowing for Lua literal table syntax when styling elements.
 * Table methods return the table itself, allowing for method-call lists.
 * Elements referenced by other elements are automagically inserted into the SVG document.
+* Pure Lua library, small footprint: Mix it with every other library/framework – no collision of namespaces.
 
 ### Bad stuff in EzSVG
 
@@ -97,8 +98,14 @@ doc:add(EzSVG.Text(
 doc:writeTo("doc-example.svg")
 ```
 
-Here is the result rendered with Inkscape:
-http://www.cappel-nord.de/ezsvg-examples/doc-example.png
+[Here is the result rendered with Inkscape](http://www.cappel-nord.de/ezsvg-examples/doc-example.png)
+
+Renderings of the other Example Files:
+# [example1.lua](http://www.cappel-nord.de/ezsvg-examples/example1.png)
+# [example2.lua](http://www.cappel-nord.de/ezsvg-examples/example2.png)
+# [example3.lua](http://www.cappel-nord.de/ezsvg-examples/example3.png)
+# [example4.lua](http://www.cappel-nord.de/ezsvg-examples/example4.png)
+# [example5.lua](http://www.cappel-nord.de/ezsvg-examples/example5.png)
 
 Function/Method Reference
 -------------------------

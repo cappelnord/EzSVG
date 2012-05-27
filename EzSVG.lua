@@ -613,6 +613,7 @@ EzSVG.Text = function(text, x, y, style)
     local contentContainer = ret
     
     ret["setText"] = function(tbl, text)
+        if type(text) == "number" then text = tostring(text) end
         if type(text) == "string" then
             contentTable = createContentTable(text)
         else
