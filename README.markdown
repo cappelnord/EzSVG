@@ -113,4 +113,25 @@ Renderings of the other Example Files:
 Function/Method Reference
 -------------------------
 
-[working on this ... not yet!]
+### Element Constructors
+#### EzSVG.Document(width, height, bgcolor, style)
+Creates the root [&lt;svg&gt;](http://www.w3.org/TR/SVG/struct.html#SVGElement) document with specified *width* and *height*. If a *bgcolor* is specified a Rect of the same size is added automatically.
+
+**:writeTo(filename)**
+The *writeTo* method renders the SVG document to a file with the specified *filename*
+
+**Example**
+```lua
+-- creates a SVG document with a red background and saves it
+local doc = EzSVG.Document(100, 100, "red")
+doc:writeTo("output.svg")
+'''
+
+#### EzSVG.SVG(x, y, width, height, style)
+Creates an empty [&lt;svg&gt;](http://www.w3.org/TR/SVG/struct.html#SVGElement) element. It's content can be embeded into another SVG document. Elements created with the SVG method can't be rendered to a file.
+
+### Color Functions
+Color functions return SVG compatible color notation as RGB strings. Range is from 0 to 255. 
+#### EzSVG.rgb(red, green, blue)
+#### EzSVG.gray(value)
+#### EzSVG.hsv(hue, saturation, value)

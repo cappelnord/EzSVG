@@ -815,7 +815,7 @@ EzSVG.Document = function(width, height, bgcolor, style)
         }))
     end    
     
-    ret.writeTo = function(tbl, file)
+    ret.writeTo = function(tbl, filename)
     
         local createRun = function(pre)
             return {
@@ -840,7 +840,7 @@ EzSVG.Document = function(width, height, bgcolor, style)
             end
         end
         
-        local file = io.open(file, "w")
+        local file = io.open(filename, "w")
         file:write(tbl:__generate(finalRun))
         io.close(file)
     end
@@ -868,8 +868,8 @@ EzSVG.rgb = function(r, g, b)
     return string.format("rgb(%d, %d, %d)", math.floor(r), math.floor(g), math.floor(b))
 end
 
-EzSVG.gray = function(g)
-    return EzSVG.rgb(g, g, g)
+EzSVG.gray = function(v)
+    return EzSVG.rgb(v, v, v)
 end
 
 EzSVG.hsv = function(h, s, v)
