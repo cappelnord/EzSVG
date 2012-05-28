@@ -107,7 +107,7 @@ Renderings of the other Example Files:
 * [example4.lua – Cute rainbow buttons](http://www.cappel-nord.de/ezsvg-examples/example4.png)
 * [example5.lua – Futuristic lines](http://www.cappel-nord.de/ezsvg-examples/example5.png)
 * [example6.lua – A circular black/white pattern test](http://www.cappel-nord.de/ezsvg-examples/example6.png)
-* [example7.lua – A hommage to the Caribou/Swim cover](http://www.cappel-nord.de/ezsvg-examples/example6.png)
+* [example7.lua – A hommage to the Caribou/Swim cover](http://www.cappel-nord.de/ezsvg-examples/example7.png)
 
 
 Function/Method Reference
