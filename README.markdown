@@ -101,12 +101,13 @@ doc:writeTo("doc-example.svg")
 [Here is the result rendered with Inkscape](http://www.cappel-nord.de/ezsvg-examples/doc-example.png)
 
 Renderings of the other Example Files:
-* [example1.lua](http://www.cappel-nord.de/ezsvg-examples/example1.png)
-* [example2.lua](http://www.cappel-nord.de/ezsvg-examples/example2.png)
-* [example3.lua](http://www.cappel-nord.de/ezsvg-examples/example3.png)
-* [example4.lua](http://www.cappel-nord.de/ezsvg-examples/example4.png)
-* [example5.lua](http://www.cappel-nord.de/ezsvg-examples/example5.png)
-* [example6.lua](http://www.cappel-nord.de/ezsvg-examples/example6.png)
+* [example1.lua – Rotated numbers and some sine lines](http://www.cappel-nord.de/ezsvg-examples/example1.png)
+* [example2.lua – Circular eye thing ...](http://www.cappel-nord.de/ezsvg-examples/example2.png)
+* [example3.lua – Lyrics spiral](http://www.cappel-nord.de/ezsvg-examples/example3.png)
+* [example4.lua – Cute rainbow buttons](http://www.cappel-nord.de/ezsvg-examples/example4.png)
+* [example5.lua – Futuristic lines](http://www.cappel-nord.de/ezsvg-examples/example5.png)
+* [example6.lua – A circular black/white pattern test](http://www.cappel-nord.de/ezsvg-examples/example6.png)
+* [example7.lua – A hommage to the Caribou/Swim cover](http://www.cappel-nord.de/ezsvg-examples/example6.png)
 
 
 Function/Method Reference
