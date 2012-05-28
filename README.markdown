@@ -125,7 +125,7 @@ The *writeTo* method renders the SVG document to a file with the specified *file
 -- creates a SVG document with a red background and saves it
 local doc = EzSVG.Document(100, 100, "red")
 doc:writeTo("output.svg")
-'''
+```
 
 #### EzSVG.SVG(x, y, width, height, style)
 Creates an empty [&lt;svg&gt;](http://www.w3.org/TR/SVG/struct.html#SVGElement) element. It's content can be embeded into another SVG document. Elements created with the SVG method can't be rendered to a file.
