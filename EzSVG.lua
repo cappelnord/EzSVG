@@ -31,7 +31,7 @@ EzSVG.knownTags = {
     "polyline", "polygon", "path", "text",
     "tspan", "textPath", "image", "svg", "g",
     "defs", "tref", "linearGradient", "radialGradient",
-    "stop", "use", "symbol", "pattern"
+    "stop", "use", "symbol", "pattern", "mask"
 }
 
 local mergeTable = function(dst, src)
@@ -165,6 +165,11 @@ local defaultPropertyValueFunction = function(tbl, key, run)
     end
     
     if key == "stroke" or key == "fill" then
+        registerReference()
+        return tbl:getURLRef()
+    end
+    
+    if key == "mask" then
         registerReference()
         return tbl:getURLRef()
     end
@@ -757,6 +762,19 @@ EzSVG.Pattern = function(x, y, width, height, preserveAspectRatio, patternUnits,
     ret["viewbox"] = viewbox
     
     ret["__transformProperty"] = "patternTransform"
+    
+    return ret
+end
+
+EzSVG.Mask = function(x, y, width, height, maskUnits, maskContentUnits, style)
+    local ret = createGroupTable("mask", style)
+    
+    ret["x"] = x
+    ret["y"] = y
+    ret["width"] = width
+    ret["height"] = height
+    ret["maskUnits"] = validUnitsValue(patternUnits) or "objectBoundingBox"
+    ret["maskContentUnits"] = validUnitsValue(patternContentUnits) or "userSpaceOnUse"
     
     return ret
 end
