@@ -148,7 +148,7 @@ There are many ways to set the style of an element:
 
 All created elements start with the current style table. These properties are overriden by the style parameter or with setStyle. Directly setting properties in the elements table override styles.
 
-[http://www.w3.org/TR/SVG/styling.html#SVGStylingProperties](Here is a list of all available style properties.)
+[Here is a list of all available style properties.](http://www.w3.org/TR/SVG/styling.html#SVGStylingProperties)
 
 ####Element:setStyle(table) or Element:setStyle(key, value)
 Add/change style properties of the element, either with a key/value table or with just one key/value.
