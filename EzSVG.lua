@@ -34,6 +34,14 @@ EzSVG.knownTags = {
     "stop", "use", "symbol", "pattern", "mask"
 }
 
+EzSVG.styleStack = {}
+
+local countElements = function(tbl)
+    local num = 0
+    for _, _ in pairs(tbl) do num = num + 1 end
+    return num
+end
+
 local mergeTable = function(dst, src)
     for k, v in pairs(src) do
         if not dst[k] then  dst[k] = src[k] end
@@ -356,6 +364,27 @@ EzSVG.clearStyle = function()
     EzSVG.styles = {}
     for _, v in pairs(EzSVG.knownTags) do
         EzSVG.styles[v] = {}
+    end
+end
+
+EzSVG.pushStyle = function()
+    -- copy all styles
+    -- metatables could do the trick too I suppose
+    local style = {}
+    for k, v in pairs(EzSVG.styles) do
+        style[k] = {}
+        for kk, vv in pairs(v) do
+            style[k][kk] = vv
+        end
+    end
+    table.insert(EzSVG.styleStack, style)
+end
+
+EzSVG.popStyle = function()
+    if #EzSVG.styleStack < 1 then
+        error("Style Stack Underflow!")
+    else
+        EzSVG.styles = table.remove(EzSVG.styleStack)
     end
 end
 
