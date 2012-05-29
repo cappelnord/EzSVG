@@ -352,7 +352,7 @@ end
 
 local setDefaultStyles = function(key, value, tag)
     if tag then
-        EzSVG.styles[tag][key] = value
+        EzSVG.styles[string.lower(tag)][key] = value
     else
         for _, v in pairs(EzSVG.styles) do
             v[key] = value

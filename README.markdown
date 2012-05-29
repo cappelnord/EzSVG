@@ -117,7 +117,7 @@ Function/Method Reference
 #### EzSVG.Document(width, height, bgcolor, style)
 Creates the root [&lt;svg&gt;](http://www.w3.org/TR/SVG/struct.html#SVGElement) document with specified *width* and *height*. If a *bgcolor* is specified a Rect of the same size is added automatically.
 
-**:writeTo(filename)**
+**Document:writeTo(filename)**
 The *writeTo* method renders the SVG document to a file with the specified *filename*
 
 **Example**
@@ -135,3 +135,29 @@ Color functions return SVG compatible color notation as RGB strings. Range is fr
 #### EzSVG.rgb(red, green, blue)
 #### EzSVG.gray(value)
 #### EzSVG.hsv(hue, saturation, value)
+
+### Styling Elements
+EzSVG uses property values instead of the style property used for HTML/CSS. You can use the underscore character instead of the dash in all style methods, which is handy for literal table notation. You can use numbers and strings as values. In some cases you can also use elements as values (for example use a gradient for the fill property). EzSVG will turn it into a reference automagically.
+
+There are many ways to set the style of an element:
+
+* Set the style with EzSVG.setStyle before element creation.
+* Use the style parameter at the elements creation.
+* Use the setStyle method of an element after creation.
+* Add a property directly into the table (you can't use underscores here!)
+
+All created elements start with the current style table. These properties are overriden by the style parameter or with setStyle. Directly setting properties in the elements table override styles.
+
+[http://www.w3.org/TR/SVG/styling.html#SVGStylingProperties](Here is a list of all available style properties.)
+
+####Element:setStyle(table) or Element:setStyle(key, value)
+Add/change style properties of the element, either with a key/value table or with just one key/value.
+
+####Element:mergeStyle(table) or Element:mergeStyle(key, value)
+Only add style properties of the element, already set properties aren't overwritten.
+
+####EzSVG.setStyle(table, tag) or Element.setStyle(key, value, tag)
+Add/change style properties of the style table for the specified element tag. If no tag is specified the style for all tags is changed.
+
+####EzSVG.pushStyle() / EzSVG.popStyle()
+Push/pop the current style to the style stack. You can use this to save the current style and go back to this point.
