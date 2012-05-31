@@ -154,10 +154,21 @@ All created elements start with the current style table. These properties are ov
 Add/change style properties of the element, either with a key/value table or with just one key/value.
 
 ####Element:mergeStyle(table) or Element:mergeStyle(key, value)
-Only add style properties of the element, already set properties aren't overwritten.
+Only add style properties to the element, already set properties aren't overwritten.
+
+####Element:clearStyle()
+Clears the style of the element. Styling attached as properties to the table stay.
 
 ####EzSVG.setStyle(table, tag) or Element.setStyle(key, value, tag)
 Add/change style properties of the style table for the specified element tag. If no tag is specified the style for all tags is changed.
 
 ####EzSVG.pushStyle() / EzSVG.popStyle()
 Push/pop the current style to the style stack. You can use this to save the current style and go back to this point.
+
+### Experimental Functions
+You can use them but I'll probably/surely change the interface and/or behaviour for them in the future. Currently they have too many possible arguments which makes them not too easy to use. I want to have ez defaults that work most of the time but don't loose features.
+
+#### EzSVG.LinearGradient(x1, y1, x2, y1, userSpaceUnits, spread,  style)
+#### EzSVG.RadialGradient(cx, cy, r, fx, fy, userSpaceUnits, spread, style)
+#### EzSVG.Pattern(x, y, width, height, preserveAspectRatio, patternUnits, patternContentUnits, viewbox, style)
+#### EzSVG.Mask(x, y, width, height, maskUnits, maskContentUnits, style)
