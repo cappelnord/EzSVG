@@ -573,6 +573,8 @@ end
 local createPointsTagTable = function(tag, points, style)
     local ret = createTagTable(tag, style)
     
+    points = points or {}
+    
     ret["__points"] = mergeTable({}, points)
     ret["__generate"] = function(tbl, run)
         local points = ""
@@ -593,6 +595,7 @@ local createPointsTagTable = function(tag, points, style)
     ret["addPoint"] = function(tbl, x, y)
         table.insert(tbl["__points"], x)
         table.insert(tbl["__points"], y)
+        return tbl
     end
     
     return ret    
