@@ -166,7 +166,7 @@ Add/change style properties of the style table for the specified element tag. If
 Push/pop the current style to the style stack. You can use this to save the current style and go back to this point.
 
 ### Experimental Functions
-You can use them but I'll probably/surely change the interface and/or behaviour for them in the future. Currently they have too many possible arguments which makes them not too easy to use. I want to have ez defaults that work most of the time but don't loose features.
+You can use them but I'll probably/surely change the interface and/or behaviour of them in the future. Currently they have too many arguments which makes them not as easy to use as I wish. I want to have ez defaults that work most of the time but I don't want to loose any features.
 
 #### EzSVG.LinearGradient(x1, y1, x2, y1, userSpaceUnits, spread,  style)
 #### EzSVG.RadialGradient(cx, cy, r, fx, fy, userSpaceUnits, spread, style)
