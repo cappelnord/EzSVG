@@ -130,6 +130,19 @@ doc:writeTo("output.svg")
 #### EzSVG.SVG(x, y, width, height, style)
 Creates an empty [&lt;svg&gt;](http://www.w3.org/TR/SVG/struct.html#SVGElement) element. It's content can be embeded into another SVG document. Elements created with the SVG method can't be rendered to a file.
 
+#### EzSVG.Circle(cx, cy, r, style)
+Creates a [&lt;circle&gt;](http://www.w3.org/TR/SVG/shapes.html#CircleElement) with center point cx/cy and radius r.
+
+#### EzSVG.Ellipse(cx, cy, rx, ry, style)
+Creates a [&lt;ellipse&gt;](http://www.w3.org/TR/SVG/shapes.html#EllipseElement) with center point cx/cy and radii rx and ry.
+
+#### EzSVG.Rect(x, y, width, height, rx, ry, style)
+Creates a [&lt;rect&gt;](http://www.w3.org/TR/SVG/shapes.html#RectElement) with x/y specifying the side of the rectangle which has the smaller y-axis coordinate value in the current user coordinate system. width/height specify the dimensions of the rectangle. The rx/ry parameters can be used to give the rectangle round corners.
+
+#### EzSVG.Line(x1, y1, x2, y2, style)
+Creates a straight [&lt;line&gt;](http://www.w3.org/TR/SVG/shapes.html#LineElement) between x1/y1 and x2/y2.
+
+
 ### Color Functions
 Color functions return SVG compatible color notation as RGB strings. Range is from 0 to 255. 
 #### EzSVG.rgb(red, green, blue)
