@@ -113,7 +113,12 @@ doc:writeTo("doc-example.svg")
 Function/Method Reference
 -------------------------
 
-### Element Constructors
+### Container Element Constructors
+Containers contain other Elements which can be added with the add method:
+
+**Container:add(element)**
+Adds an *element* to the group. Be aware, that no copy of the *element* is made (all changes to the *element* are still affecting the *element* in the group).
+
 #### EzSVG.Document(width, height, bgcolor, style)
 Creates the root [&lt;svg&gt;](http://www.w3.org/TR/SVG/struct.html#SVGElement) document with specified *width* and *height*. If a *bgcolor* is specified a Rect of the same size is added automatically.
 
@@ -128,23 +133,43 @@ doc:writeTo("output.svg")
 ```
 
 #### EzSVG.SVG(x, y, width, height, style)
-Creates an empty [&lt;svg&gt;](http://www.w3.org/TR/SVG/struct.html#SVGElement) element. It's content can be embeded into another SVG document. Elements created with the SVG method can't be rendered to a file.
+Creates an empty [&lt;svg&gt;](http://www.w3.org/TR/SVG/struct.html#SVGElement) element. It's content can be embeded into another SVG document. Elements created with the SVG method can't be rendered to a file (use *EzSVG.Document* instead).
+
+#### EzSVG.Group(style)
+Creates an empty [&lt;g&gt;](http://www.w3.org/TR/SVG/struct.html#Groups) (group) element. Groups are very handy, because groups will also be groups in vector graphic programs such as Inkscape or Adobe Illustrator. Groups can be used in conjunction with *EzSVG.Use* to create elements that are repeated throughout the document.
+
+### Shape Element Constructors
 
 #### EzSVG.Circle(cx, cy, r, style)
-Creates a [&lt;circle&gt;](http://www.w3.org/TR/SVG/shapes.html#CircleElement) with center point cx/cy and radius r.
+Creates a [&lt;circle&gt;](http://www.w3.org/TR/SVG/shapes.html#CircleElement) with center point *cx/cy* and radius *r*.
 
 #### EzSVG.Ellipse(cx, cy, rx, ry, style)
 Creates a [&lt;ellipse&gt;](http://www.w3.org/TR/SVG/shapes.html#EllipseElement) with center point cx/cy and radii rx and ry.
 
 #### EzSVG.Rect(x, y, width, height, rx, ry, style)
-Creates a [&lt;rect&gt;](http://www.w3.org/TR/SVG/shapes.html#RectElement) with x/y specifying the side of the rectangle which has the smaller y-axis coordinate value in the current user coordinate system. width/height specify the dimensions of the rectangle. The rx/ry parameters can be used to give the rectangle round corners.
+Creates a [&lt;rect&gt;](http://www.w3.org/TR/SVG/shapes.html#RectElement) with *x/y* specifying the side of the rectangle which has the smaller y-axis coordinate value in the current user coordinate system. *width/height* specify the dimensions of the rectangle. The *rx/ry* parameters can be used to give the rectangle round corners.
 
 #### EzSVG.Line(x1, y1, x2, y2, style)
-Creates a straight [&lt;line&gt;](http://www.w3.org/TR/SVG/shapes.html#LineElement) between x1/y1 and x2/y2.
+Creates a straight [&lt;line&gt;](http://www.w3.org/TR/SVG/shapes.html#LineElement) between *x1/y1* and *x2/y2*.
 
+#### EzSVG.Polyline(points, style)
+#### EzSVG.Polygon(points, style)
+Creates a [&lt;polyline&gt;](http://www.w3.org/TR/SVG/shapes.html#PolylineElement) or [&lt;polygon&gt;](http://www.w3.org/TR/SVG/shapes.html#PolygonElement) with the table *points* as his vertices. The points table must have an even size, and has the layout {x1, y1, x2, y2, x3, y3, …}. The difference between a polygon and a polyline is basically, that a polygon is closing itself automatically (draws a line to its start point).
+
+### Other Element Constructors
+
+#### EzSVG.Use(href, x, y, width, height, style)
+Creates an [&lt;use&gt;](http://www.w3.org/TR/SVG/struct.html#UseElement) element with which you can place any other element (or a copy of that) on the canvas. The *href* can be either an element table or a direct href string. You can specify positions and dimensions with *x/y* and *width/height*.
+
+#### EzSVG.Image(href, x, y, width, height, style)
+Creates an [&lt;image&gt;](http://www.w3.org/TR/SVG/struct.html#ImageElement) element and places the image to the coordinates *x/y* with dimensions of *width/height*. The image *href* is specified by a String path (e.g. "img/flower1.png"). PNG and JPG are good choices for image file formats.
+
+**Document:addPoint(x, y)**
+Adds a point to the polygon/polyline element after creation.
 
 ### Color Functions
-Color functions return SVG compatible color notation as RGB strings. Range is from 0 to 255. 
+Color functions return SVG compatible color notation as RGB strings. Range is from 0 to 255. In general you can use all color notations that are compatible with SVG, e.g. "rgb(255, 0, 0)", "#FF0000" and "red" are all the same.
+
 #### EzSVG.rgb(red, green, blue)
 #### EzSVG.gray(value)
 #### EzSVG.hsv(hue, saturation, value)
