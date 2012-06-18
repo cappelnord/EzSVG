@@ -156,6 +156,9 @@ Creates a straight [&lt;line&gt;](http://www.w3.org/TR/SVG/shapes.html#LineEleme
 #### EzSVG.Polygon(points, style)
 Creates a [&lt;polyline&gt;](http://www.w3.org/TR/SVG/shapes.html#PolylineElement) or [&lt;polygon&gt;](http://www.w3.org/TR/SVG/shapes.html#PolygonElement) with the table *points* as his vertices. The points table must have an even size, and has the layout {x1, y1, x2, y2, x3, y3, …}. The difference between a polygon and a polyline is basically, that a polygon is closing itself automatically (draws a line to its start point).
 
+**Document:addPoint(x, y)**
+Adds a point to the polygon/polyline element after creation.
+
 ### Other Element Constructors
 
 #### EzSVG.Use(href, x, y, width, height, style)
@@ -163,9 +166,6 @@ Creates an [&lt;use&gt;](http://www.w3.org/TR/SVG/struct.html#UseElement) elemen
 
 #### EzSVG.Image(href, x, y, width, height, style)
 Creates an [&lt;image&gt;](http://www.w3.org/TR/SVG/struct.html#ImageElement) element and places the image to the coordinates *x/y* with dimensions of *width/height*. The image *href* is specified by a String path (e.g. "img/flower1.png"). PNG and JPG are good choices for image file formats.
-
-**Document:addPoint(x, y)**
-Adds a point to the polygon/polyline element after creation.
 
 ### Color Functions
 Color functions return SVG compatible color notation as RGB strings. Range is from 0 to 255. In general you can use all color notations that are compatible with SVG, e.g. "rgb(255, 0, 0)", "#FF0000" and "red" are all the same.
