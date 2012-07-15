@@ -156,7 +156,7 @@ Creates a straight [&lt;line&gt;](http://www.w3.org/TR/SVG/shapes.html#LineEleme
 #### EzSVG.Polygon(points, style)
 Creates a [&lt;polyline&gt;](http://www.w3.org/TR/SVG/shapes.html#PolylineElement) or [&lt;polygon&gt;](http://www.w3.org/TR/SVG/shapes.html#PolygonElement) with the table *points* as his vertices. The points table must have an even size, and has the layout {x1, y1, x2, y2, x3, y3, …}. The difference between a polygon and a polyline is basically, that a polygon is closing itself automatically (draws a line to its start point).
 
-**Document:addPoint(x, y)**
+**Element:addPoint(x, y)**
 Adds a point to the polygon/polyline element after creation.
 
 ### Other Element Constructors
