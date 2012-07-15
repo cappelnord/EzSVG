@@ -334,13 +334,13 @@ local createGroupTable = function(tag, style)
     ret["__content"] = {}
     
     ret["__content"]["__generate"] = function(tbl, run)
-        local ret = ""
+        local stringTable = {}
         for k, v in pairs(tbl) do
             if serializableValue(k, v) then
-                ret = string.format("%s%s ", ret, v:__generate(run))
+                table.insert(stringTable, v:__generate(run))
             end
         end
-        return ret
+        return table.concat(stringTable, " ")
     end
     
     ret["add"] = function(tbl, item)
