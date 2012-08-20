@@ -36,27 +36,27 @@ EzSVG.knownTags = {
 
 EzSVG.styleStack = {}
 
-local countElements = function(tbl)
+local function countElements(tbl)
     local num = 0
     for _, _ in pairs(tbl) do num = num + 1 end
     return num
 end
 
-local mergeTable = function(dst, src)
+local function mergeTable(dst, src)
     for k, v in pairs(src) do
         if not dst[k] then  dst[k] = src[k] end
     end
     return dst
 end
 
-local overwriteTable = function(dst, src)
+local function overwriteTable(dst, src)
     for k, v in pairs(src) do
         dst[k] = src[k]
     end
     return dst
 end
 
-local updashStyleTable = function(tbl)
+local function updashStyleTable(tbl)
     local ret = {}
     for k, v in pairs(tbl) do
         local nk = string.gsub(k, "_", "-")
@@ -68,14 +68,14 @@ local updashStyleTable = function(tbl)
     return ret
 end
 
-local serializableValue = function(k, v)
+local function serializableValue(k, v)
     if type(v) == "function" then return false end
     if type(k) == "number" then return true end
     if string.sub(k, 1, k.len("__")) == "__" then return false end
     return true
 end
 
-local processPropertyValues = function (tbl, run)
+local function processPropertyValues(tbl, run)
     for k,v in pairs(tbl) do
         if serializableValue(k, v) then
             if v ~= "" and v ~= nil then
@@ -87,7 +87,7 @@ local processPropertyValues = function (tbl, run)
     end
 end
 
-local defaultGenerateFunction = function(tbl, run)
+local function defaultGenerateFunction(tbl, run)
     
     if run.preflight then
         processPropertyValues(tbl, run)
@@ -137,7 +137,7 @@ local defaultGenerateFunction = function(tbl, run)
     return ret
 end
 
-local transformGenerateFunction = function(tbl, run)
+local function transformGenerateFunction(tbl, run)
 
     if run.preflight then return "" end
 
@@ -160,7 +160,7 @@ local transformGenerateFunction = function(tbl, run)
     return ret
 end
 
-local defaultPropertyValueFunction = function(tbl, key, run)
+local function defaultPropertyValueFunction(tbl, key, run)
     local registerReference = function()
         if run then
             table.insert(run["referencedObjects"], tbl)
@@ -185,7 +185,7 @@ local defaultPropertyValueFunction = function(tbl, key, run)
     return tostring(tbl)
 end
 
-local createStyleTable = function(tag, style, doInherit)
+local function createStyleTable(tag, style, doInherit)
     local ret = {}
     
     if style then
@@ -200,7 +200,7 @@ local createStyleTable = function(tag, style, doInherit)
     return ret
 end
 
-local attachTransformFunctions = function(tbl)
+local function attachTransformFunctions(tbl)
     tbl["rotate"] = function(tbl, angle, cx, cy)
         table.insert(tbl["__transform"]["__functions"], {"rotate", angle, cx, cy})
         return tbl
@@ -234,7 +234,7 @@ local attachTransformFunctions = function(tbl)
     tbl["__transformProperty"] = "transform"
 end
 
-local attachStyleFunctions = function(tbl)
+local function attachStyleFunctions(tbl)
     tbl["setStyle"] = function(tbl, key, value)
         if type(key) == "table" then
             key = updashStyleTable(key)
@@ -265,7 +265,7 @@ local attachStyleFunctions = function(tbl)
     end
 end
 
-local createTransformTable = function()
+local function createTransformTable()
     local ret = {}
     
     ret["__functions"] = {}
@@ -275,12 +275,12 @@ local createTransformTable = function()
 end
 
 local currentUniqueID = 1000
-local nextUniqueID = function()
+local function nextUniqueID()
     currentUniqueID = currentUniqueID + 1
     return currentUniqueID
 end
 
-local createTagTable = function(tag, style)
+local function createTagTable(tag, style)
     local ret = {}
     
     ret["__tag"] = tag
@@ -319,7 +319,7 @@ local createTagTable = function(tag, style)
     return ret
 end
 
-local createContentTable = function(content)
+local function createContentTable(content)
     local ret = {}
     ret["__text"] = content
     ret["__generate"] = function(tbl, run)
@@ -329,7 +329,7 @@ local createContentTable = function(content)
     return ret
 end
 
-local createGroupTable = function(tag, style)
+local function createGroupTable(tag, style)
     local ret = createTagTable(tag, style)
     ret["__content"] = {}
     
@@ -350,7 +350,7 @@ local createGroupTable = function(tag, style)
     return ret
 end
 
-local setDefaultStyles = function(key, value, tag)
+local function setDefaultStyles(key, value, tag)
     if tag then
         EzSVG.styles[string.lower(tag)][key] = value
     else
@@ -360,14 +360,14 @@ local setDefaultStyles = function(key, value, tag)
     end
 end
 
-EzSVG.clearStyle = function()
+function EzSVG.clearStyle()
     EzSVG.styles = {}
     for _, v in pairs(EzSVG.knownTags) do
         EzSVG.styles[v] = {}
     end
 end
 
-EzSVG.pushStyle = function()
+function EzSVG.pushStyle()
     -- copy all styles
     -- metatables could do the trick too I suppose
     local style = {}
@@ -380,7 +380,7 @@ EzSVG.pushStyle = function()
     table.insert(EzSVG.styleStack, style)
 end
 
-EzSVG.popStyle = function()
+function EzSVG.popStyle()
     if #EzSVG.styleStack < 1 then
         error("Style Stack Underflow!")
     else
@@ -388,7 +388,7 @@ EzSVG.popStyle = function()
     end
 end
 
-EzSVG.setStyle = function(key, value, tag)
+function EzSVG.setStyle(key, value, tag)
     if type(key) == "table" then
         key = updashStyleTable(key)
         tag = value -- promote
@@ -402,7 +402,7 @@ EzSVG.setStyle = function(key, value, tag)
 end
 
 
-EzSVG.Circle = function(cx, cy, r, style)
+function EzSVG.Circle(cx, cy, r, style)
     local ret = createTagTable("circle", style)
     ret["cx"] = cx
     ret["cy"] = cy
@@ -411,7 +411,7 @@ EzSVG.Circle = function(cx, cy, r, style)
     return ret
 end
 
-EzSVG.Ellipse = function(cx, cy, rx, ry, style)
+function EzSVG.Ellipse(cx, cy, rx, ry, style)
     local ret = createTagTable("ellipse", style)
     ret["cx"] = cx
     ret["cy"] = cy
@@ -421,7 +421,7 @@ EzSVG.Ellipse = function(cx, cy, rx, ry, style)
     return ret
 end
 
-EzSVG.Line = function(x1, y1, x2, y2, style)
+function EzSVG.Line(x1, y1, x2, y2, style)
     local ret = createTagTable("line", style)
     ret["x1"] = x1
     ret["y1"] = y1
@@ -431,7 +431,7 @@ EzSVG.Line = function(x1, y1, x2, y2, style)
     return ret
 end
 
-EzSVG.Path = function(style)
+function EzSVG.Path(style)
     local ret = createTagTable("path", style)
     
     ret["__d"] = {}
@@ -570,7 +570,7 @@ EzSVG.Path = function(style)
     return ret
 end
 
-local createPointsTagTable = function(tag, points, style)
+local function createPointsTagTable(tag, points, style)
     local ret = createTagTable(tag, style)
     
     points = points or {}
@@ -601,15 +601,15 @@ local createPointsTagTable = function(tag, points, style)
     return ret    
 end
 
-EzSVG.Polyline = function(points, style)
+function EzSVG.Polyline(points, style)
     return createPointsTagTable("polyline", points, style)
 end
 
-EzSVG.Polygon = function(points, style)
+function EzSVG.Polygon(points, style)
     return createPointsTagTable("polygon", points, style)
 end
 
-EzSVG.Rect = function(x, y, width, height, rx, ry, style)
+function EzSVG.Rect(x, y, width, height, rx, ry, style)
     local ret = createTagTable("rect", style)
     
     ret["x"] = x
@@ -622,7 +622,7 @@ EzSVG.Rect = function(x, y, width, height, rx, ry, style)
     return ret
 end
 
-EzSVG.Image = function(href, x, y, width, height, style)
+function EzSVG.Image(href, x, y, width, height, style)
     local ret = createTagTable("image", style)
     
     ret["xlink:href"] = href
@@ -635,7 +635,7 @@ EzSVG.Image = function(href, x, y, width, height, style)
 end
 
 
-local createTextPathTable = function(href, text, style)
+local function createTextPathTable(href, text, style)
     local ret = createTagTable("textPath", style)
     
     ret["xlink:href"] = href
@@ -645,7 +645,7 @@ end
 
 -- this somehow sucks!
 
-EzSVG.Text = function(text, x, y, style)
+function EzSVG.Text(text, x, y, style)
     local ret = createTagTable("text", style)
     
     local contentTable
@@ -683,14 +683,14 @@ EzSVG.Text = function(text, x, y, style)
     return ret
 end
 
-EzSVG.TextRef = function(href, style)
+function EzSVG.TextRef(href, style)
     local ret = createTagTable("tref", style)    
     ret["xlink:href"] = href
     
     return ret
 end
 
-EzSVG.Group = function(style)
+function EzSVG.Group(style)
     local ret = createGroupTable("g", style)
     return ret
 end
@@ -731,7 +731,7 @@ local function createGradientTable(tag, userSpaceUnits, spread, style)
     return ret
 end
 
-EzSVG.LinearGradient = function(x1, y1, x2, y1, userSpaceUnits, spread,  style)
+function EzSVG.LinearGradient(x1, y1, x2, y1, userSpaceUnits, spread,  style)
     local ret = createGradientTable("linearGradient", userSpaceUnits, spread, style)
     
     local process = numberToPercent
@@ -745,7 +745,7 @@ EzSVG.LinearGradient = function(x1, y1, x2, y1, userSpaceUnits, spread,  style)
     return ret
 end
 
-EzSVG.RadialGradient = function(cx, cy, r, fx, fy, userSpaceUnits, spread, style)
+function EzSVG.RadialGradient(cx, cy, r, fx, fy, userSpaceUnits, spread, style)
     local ret = createGradientTable("radialGradient", userSpaceUnits, spread, style)
     
     local process = numberToPercent
@@ -760,7 +760,7 @@ EzSVG.RadialGradient = function(cx, cy, r, fx, fy, userSpaceUnits, spread, style
     return ret
 end
 
-EzSVG.Use = function(href, x, y, width, height, style)
+function EzSVG.Use(href, x, y, width, height, style)
     local ret = createTagTable("use", style)
     
     ret["xlink:href"] = href
@@ -772,7 +772,7 @@ EzSVG.Use = function(href, x, y, width, height, style)
     return ret
 end
 
-EzSVG.Symbol = function(preserveAspectRatio, viewBox, style)
+function EzSVG.Symbol(preserveAspectRatio, viewBox, style)
     local ret createGroupTable("symbol", style)
     
     ret["preserveAspectRatio"] = preserveAspectRatio
@@ -781,7 +781,7 @@ EzSVG.Symbol = function(preserveAspectRatio, viewBox, style)
     return ret
 end
 
-EzSVG.Pattern = function(x, y, width, height, preserveAspectRatio, patternUnits, patternContentUnits, viewbox, style)
+function EzSVG.Pattern(x, y, width, height, preserveAspectRatio, patternUnits, patternContentUnits, viewbox, style)
     local ret = createGroupTable("pattern", style)
     
     ret["x"] = x
@@ -798,7 +798,7 @@ EzSVG.Pattern = function(x, y, width, height, preserveAspectRatio, patternUnits,
     return ret
 end
 
-EzSVG.Mask = function(x, y, width, height, maskUnits, maskContentUnits, style)
+function EzSVG.Mask(x, y, width, height, maskUnits, maskContentUnits, style)
     local ret = createGroupTable("mask", style)
     
     ret["x"] = x
@@ -811,12 +811,12 @@ EzSVG.Mask = function(x, y, width, height, maskUnits, maskContentUnits, style)
     return ret
 end
 
-local createDefs = function()
+local function createDefs()
     local ret = createGroupTable("defs")
     return ret
 end
 
-local attachDefsFunctions = function(tbl)
+local function attachDefsFunctions(tbl)
     local defs = createDefs()
     tbl:add(defs)
     
@@ -826,12 +826,12 @@ local attachDefsFunctions = function(tbl)
 end
 
 local currentRunID = 0
-local nextRunID = function()
+local function nextRunID()
     currentRunID = currentRunID + 1
     return currentRunID
 end
 
-EzSVG.Document = function(width, height, bgcolor, style)
+function EzSVG.Document(width, height, bgcolor, style)
     local ret = createGroupTable("svg", style)
     
     ret["xmlns"] = "http://www.w3.org/2000/svg"
@@ -882,7 +882,7 @@ EzSVG.Document = function(width, height, bgcolor, style)
     return ret
 end
 
-EzSVG.SVG = function(x, y, width, height, style)
+function EzSVG.SVG(x, y, width, height, style)
     local ret = createGroupTable("svg", style)
     
     ret["width"] = width
@@ -896,15 +896,15 @@ EzSVG.SVG = function(x, y, width, height, style)
     return ret
 end
 
-EzSVG.rgb = function(r, g, b)
+function EzSVG.rgb(r, g, b)
     return string.format("rgb(%d, %d, %d)", math.floor(r), math.floor(g), math.floor(b))
 end
 
-EzSVG.gray = function(v)
+function EzSVG.gray(v)
     return EzSVG.rgb(v, v, v)
 end
 
-EzSVG.hsv = function(h, s, v)
+function EzSVG.hsv(h, s, v)
 
     h = h / 255
     s = s / 255
