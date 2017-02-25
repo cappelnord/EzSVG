@@ -847,7 +847,7 @@ function EzSVG.Document(width, height, bgcolor, style)
         }))
     end    
     
-    ret.writeTo = function(tbl, filename)
+    ret.tostr = function(tbl)
     
         local createRun = function(pre)
             return {
@@ -872,8 +872,12 @@ function EzSVG.Document(width, height, bgcolor, style)
             end
         end
         
+        return tbl:__generate(finalRun)
+    end
+
+    ret.writeTo = function(tbl, filename)
         local file = io.open(filename, "w")
-        file:write(tbl:__generate(finalRun))
+        file:write(tbl:tostr())
         io.close(file)
     end
     
